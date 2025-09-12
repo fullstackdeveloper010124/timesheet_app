@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LeaveApplicationPage extends StatefulWidget {
+  const LeaveApplicationPage({super.key});
+
   @override
   _LeaveApplicationPageState createState() => _LeaveApplicationPageState();
 }
@@ -19,10 +21,11 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
       });
+    }
   }
 
   @override
@@ -38,7 +41,8 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF5F4BD8)),
-              child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
+              child: Text('Menu',
+                  style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
             ListTile(
               leading: Icon(Icons.dashboard),
@@ -79,21 +83,20 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: [
-            Text('Leave Application Form', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('Leave Application Form',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
             Text('Please provide information about your leave.'),
             SizedBox(height: 16),
-
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Leave Type'),
-              value: leaveType,
+              initialValue: leaveType,
               items: ['Sick Leave', 'Casual Leave', 'Earned Leave']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) => setState(() => leaveType = val),
             ),
             SizedBox(height: 16),
-
             InkWell(
               onTap: () => _selectDate(context),
               child: InputDecorator(
@@ -104,17 +107,15 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
               ),
             ),
             SizedBox(height: 16),
-
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Select Period'),
-              value: leavePeriod,
+              initialValue: leavePeriod,
               items: ['Full Day', 'Half Day - Morning', 'Half Day - Afternoon']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) => setState(() => leavePeriod = val),
             ),
             SizedBox(height: 16),
-
             TextFormField(
               controller: reasonController,
               maxLines: 3,
@@ -125,7 +126,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
               ),
             ),
             SizedBox(height: 16),
-
             Row(
               children: [
                 Expanded(
@@ -141,17 +141,15 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
               ],
             ),
             SizedBox(height: 16),
-
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Jobs Will Be Covered By'),
-              value: coveredBy,
+              initialValue: coveredBy,
               items: ['John Doe', 'Jane Smith', 'No One']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) => setState(() => coveredBy = val),
             ),
             SizedBox(height: 24),
-
             ElevatedButton(
               onPressed: () {
                 // Handle apply leave logic

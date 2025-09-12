@@ -34,6 +34,8 @@ dependencies:
   flutter_bloc: ^9.1.1 # if using BLoC
   equatable: ^2.0.5 # if using BLoC
   percent_indicator: ^4.2.2
+  http: ^1.1.0
+  shared_preferences: ^2.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

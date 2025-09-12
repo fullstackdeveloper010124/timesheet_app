@@ -198,7 +198,7 @@ class CalendarTimesheetPage extends StatelessWidget {
                 ? _taskBlock('$task\n$time', primaryColor, 1)
                 : const SizedBox(height: 40),
           );
-        }).toList(),
+        }),
       ]);
     });
   }

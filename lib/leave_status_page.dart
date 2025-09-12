@@ -12,34 +12,41 @@ class LeaveStatusPage extends StatelessWidget {
     {
       "title": "Annual Leave",
       "date": "1 Sep 2023 - 1 Sep 2023 (full day)",
-      "description": "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
+      "description":
+          "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
       "status": "Approved"
     },
     {
       "title": "Medical Leave",
       "date": "1 Sep 2023 - 1 Sep 2023 (full day)",
-      "description": "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
+      "description":
+          "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
       "status": "Approved"
     },
     {
       "title": "Annual Leave",
       "date": "1 Sep 2023 - 1 Sep 2023 (full day)",
-      "description": "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
+      "description":
+          "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
       "status": "Rejected"
     },
     {
       "title": "Annual Leave",
       "date": "1 Sep 2023 - 1 Sep 2023 (full day)",
-      "description": "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
+      "description":
+          "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
       "status": "Approved"
     },
     {
       "title": "Medical Leave",
       "date": "1 Sep 2023 - 1 Sep 2023 (full day)",
-      "description": "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
+      "description":
+          "Lorem ipsum neblödgt benyblö dlgögt röm ot. Peqlüg vabonet.",
       "status": "Approved"
     },
   ];
+
+  LeaveStatusPage({super.key});
 
   Color getStatusColor(String status) {
     switch (status) {
@@ -63,7 +70,8 @@ class LeaveStatusPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          Text('Recent Application:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Recent Application:',
+              style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           LeaveCard(
             title: recentLeave["title"]!,
@@ -73,7 +81,8 @@ class LeaveStatusPage extends StatelessWidget {
             color: getStatusColor(recentLeave["status"]!),
           ),
           SizedBox(height: 16),
-          Text('Past Application:', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Past Application:',
+              style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           ...pastLeaves.map((leave) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -93,7 +102,8 @@ class LeaveStatusPage extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Apply Leave'),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Leave Status'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt), label: 'Leave Status'),
         ],
       ),
     );
@@ -108,6 +118,7 @@ class LeaveCard extends StatelessWidget {
   final Color color;
 
   const LeaveCard({
+    super.key,
     required this.title,
     required this.date,
     required this.description,
@@ -128,7 +139,8 @@ class LeaveCard extends StatelessWidget {
             Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
             Text(date, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
             SizedBox(height: 6),
-            Text(description, style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+            Text(description,
+                style: TextStyle(fontSize: 13, color: Colors.grey[600])),
             Align(
               alignment: Alignment.centerRight,
               child: Container(
