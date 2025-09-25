@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dashboardpage.dart';
-import 'services/api_service.dart';
+import 'admin/dashboardpage_admin.dart' as admin;
+import 'manager/dashboardpage_manager.dart' as manager;
+import 'employee/dashboardpage_employee.dart' as employee;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color(0xFFF8F8FF),
       body: Stack(
         children: [
-          // Background circles (optional for style)
+          // Background decoration
           Positioned(
             top: -50,
             right: -50,
@@ -196,9 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const Text("Don't have an account?"),
                       TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                        onPressed: () {},
                         child: const Text("Sign Up"),
                       ),
                     ],
@@ -227,11 +226,11 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  // Handle login
+  // Handle login (offline only)
   Future<void> _handleLogin() async {
-    // Clear previous error
     setState(() {
       _errorMessage = null;
+      _isLoading = true;
     });
 
     // Validate form
@@ -239,52 +238,43 @@ class _LoginPageState extends State<LoginPage> {
     if (validationError != null) {
       setState(() {
         _errorMessage = validationError;
+        _isLoading = false;
       });
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    await Future.delayed(const Duration(seconds: 1)); // fake delay
 
-    try {
-      // Call login API
-      Map<String, dynamic> response = await AuthAPI.login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login successful!'),
+          backgroundColor: Colors.green,
+        ),
       );
 
-      // Save token and user data
-      if (response['token'] != null) {
-        await ApiService.saveToken(response['token']);
-        await ApiService.saveUser(response['user']);
+      // Navigate based on dropdown role
+      Widget target;
+      switch (selectedRole) {
+        case 'Admin':
+          target = const admin.DashboardPage();
+          break;
+        case 'Manager':
+          target = const manager.DashboardPage();
+          break;
+        case 'Employee':
+        default:
+          target = const employee.DashboardPage();
       }
 
-      // Show success message
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login successful!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => target),
+        (route) => false,
+      );
 
-        // Navigate to dashboard
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const DashboardPage()),
-        );
-      }
-    } catch (e) {
       setState(() {
-        _errorMessage = e.toString().replaceFirst('Exception: ', '');
+        _isLoading = false;
       });
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
     }
   }
 

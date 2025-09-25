@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
-import 'services/api_service.dart';
+// Removed API integration for offline/local-only signup flow
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -286,42 +286,13 @@ class _SignupPageState extends State<SignupPage> {
     });
 
     try {
-      Map<String, dynamic> response;
+      // Simulate processing delay in offline mode
+      await Future.delayed(const Duration(milliseconds: 300));
 
-      // Choose the appropriate signup endpoint based on role
-      if (selectedRole == 'Employee') {
-        // Use member signup for employees
-        response = await AuthAPI.memberSignup(
-          name: _fullNameController.text.trim(),
-          phone: _phoneController.text.trim(),
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
-          confirmPassword: _confirmPasswordController.text,
-          role: selectedRole,
-        );
-      } else {
-        // Use user signup for admin/manager
-        response = await AuthAPI.userSignup(
-          fullName: _fullNameController.text.trim(),
-          phone: _phoneController.text.trim(),
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
-          confirmPassword: _confirmPasswordController.text,
-          role: selectedRole,
-        );
-      }
-
-      // Save token and user data
-      if (response['token'] != null) {
-        await ApiService.saveToken(response['token']);
-        await ApiService.saveUser(response['user']);
-      }
-
-      // Show success message
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Account created successfully!'),
+            content: Text('Account created (offline mode)!'),
             backgroundColor: Colors.green,
           ),
         );
@@ -332,10 +303,6 @@ class _SignupPageState extends State<SignupPage> {
           MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       }
-    } catch (e) {
-      setState(() {
-        _errorMessage = e.toString().replaceFirst('Exception: ', '');
-      });
     } finally {
       if (mounted) {
         setState(() {
