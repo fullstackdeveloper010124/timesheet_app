@@ -48,7 +48,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
             SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Leave Type'),
-              initialValue: leaveType,
+              value: leaveType,
               items: ['Sick Leave', 'Casual Leave', 'Earned Leave']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
@@ -67,7 +67,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
             SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Select Period'),
-              initialValue: leavePeriod,
+              value: leavePeriod,
               items: ['Full Day', 'Half Day - Morning', 'Half Day - Afternoon']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
@@ -101,7 +101,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
             SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: 'Jobs Will Be Covered By'),
-              initialValue: coveredBy,
+              value: coveredBy,
               items: ['John Doe', 'Jane Smith', 'No One']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
